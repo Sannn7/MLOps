@@ -1,2 +1,2 @@
-BALANCE,PURCHASES,CREDIT_LIMIT
-3202.467416,124.5,241514
+danceability,energy,loudness,speechiness,acousticness,instrumentalness,liveness,valence,tempo
+0.72,0.84,-5.30,0.05,0.12,0.00,0.10,0.65,128.0
