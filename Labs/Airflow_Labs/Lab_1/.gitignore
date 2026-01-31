@@ -1,0 +1,19 @@
+# Airflow database files (too large for GitHub)
+airflow.db
+airflow.db-shm
+airflow.db-wal
+*.db
+
+# Virtual environment
+.venv/
+venv/
+
+# Logs
+logs/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
