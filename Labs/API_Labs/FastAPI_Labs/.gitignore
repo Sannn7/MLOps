@@ -1,0 +1,6 @@
+echo "__pycache__/
+*.pyc
+*.pyo
+.venv/
+model/housing_model.pkl
+model/iris_model.pkl" > .gitignore
