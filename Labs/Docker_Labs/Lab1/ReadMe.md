@@ -26,6 +26,9 @@ and the model is saved using Docker volume mounting for persistence.
 
 ## Results
 ```
+### Model Output
+![Output](results/output.png)
+
 Model Accuracy: 0.7832
 
 Classification Report:
