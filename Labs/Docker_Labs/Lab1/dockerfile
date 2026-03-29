@@ -1,14 +1,41 @@
 # Use an official Python runtime as a parent image
-FROM python:3.10
+FROM python:3.10-slim
+
+# Add metadata labels
+LABEL maintainer="sanikakillekar@northeastern.edu"
+LABEL version="2.0"
+LABEL description="Titanic survival prediction using Gradient Boosting"
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    MODEL_OUTPUT_DIR=/app/models
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the model training script into the container
+# Create a directory for saving models (demonstrates volume usage)
+RUN mkdir -p /app/models /app/logs
+
+# Copy requirements first (layer caching optimization)
+COPY src/requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the source code
 COPY src/ .
 
-# Install Scikit-Learn and joblib
-RUN pip install -r requirements.txt
+# Create a non-root user for security best practices
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
+# Add a healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+    CMD python -c "import sklearn; print('healthy')" || exit 1
+
+# Expose a port (good practice to document)
+EXPOSE 8080
 
 # Run the script when the container launches
 CMD ["python", "main.py"]
