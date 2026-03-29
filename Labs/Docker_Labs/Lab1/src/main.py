@@ -34,6 +34,8 @@ if __name__ == '__main__':
     print("\nClassification Report:")
     print(classification_report(y_test, y_pred))
 
-    # Save model
-    joblib.dump(model, 'titanic_model.pkl')
-    print("Model saved to titanic_model.pkl")
+    import os
+    output_dir = os.getenv('MODEL_OUTPUT_DIR', '/app/models')
+    os.makedirs(output_dir, exist_ok=True)
+    joblib.dump(model, os.path.join(output_dir, 'titanic_model.pkl'))
+    print(f"Model saved to {output_dir}/titanic_model.pkl")
